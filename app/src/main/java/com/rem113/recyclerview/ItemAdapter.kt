@@ -11,6 +11,9 @@ class ItemAdapter(private var items : Array<String> = arrayOf()) : RecyclerView.
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         holder.text.text = items[position]
+        holder.text.setOnClickListener {
+            view -> Log.d("Clicked", view.text.text.toString())
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
@@ -21,17 +24,5 @@ class ItemAdapter(private var items : Array<String> = arrayOf()) : RecyclerView.
         return items.size
     }
 
-    class ItemHolder(row: View) : RecyclerView.ViewHolder(row), View.OnClickListener {
-        private var view : View = row
-        var text : TextView = row.text
-
-        init {
-            view.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View) {
-            Log.d("Clicked", v.text.text.toString())
-        }
-    }
-
+    data class ItemHolder(private val row: View, var text : TextView = row.text) : RecyclerView.ViewHolder(row)
 }
